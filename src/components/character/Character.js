@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './Character.css';
 import { CircularProgress } from '@material-ui/core';
 
+const CHARACTER_URI = 'https://rickandmortyapi.com/api/character'; 
 const Character = () => {
 
     const [characters, setCharacters] = useState([]);
 
     useEffect(() => {
-        fetch('https://rickandmortyapi.com/api/character',
+        fetch(CHARACTER_URI,
             { method: 'GET', headers: { 'Content-Type': 'application/json' } }
         ).then((response) => {
             return response.json();
