@@ -8,9 +8,8 @@ const Character = () => {
     const [characters, setCharacters] = useState([]);
 
     useEffect(() => {
-        fetch(CHARACTER_URI,
-            { method: 'GET', headers: { 'Content-Type': 'application/json' } }
-        ).then((response) => {
+        fetch(CHARACTER_URI)
+        .then((response) => {
             return response.json();
         }).then((resource) => {        
             setCharacters(resource.results.slice(0,3));

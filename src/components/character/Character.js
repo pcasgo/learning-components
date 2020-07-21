@@ -9,9 +9,8 @@ class Character extends React.Component {
     }
 
     componentDidMount() {
-        fetch(CHARACTER_URI,
-            { method: 'GET', headers: { 'Content-Type': 'application/json' } }
-        ).then((response) => {
+        fetch(CHARACTER_URI)
+        .then((response) => {
             return response.json();
         }).then((resource) => {                
             this.setState({ characters: resource.results.slice(0,3)})  
