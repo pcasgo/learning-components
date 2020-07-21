@@ -1,25 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Character.css';
 import { CircularProgress } from '@material-ui/core';
 
 const CHARACTER_URI = 'https://rickandmortyapi.com/api/character'; 
-class Character extends React.Component {
-    state = {
-        characters: []
-    }
+const Character = () => {
 
-    componentDidMount() {
+    const [characters, setCharacters] = useState([]);
+
+    useEffect(() => {
         fetch(CHARACTER_URI,
             { method: 'GET', headers: { 'Content-Type': 'application/json' } }
         ).then((response) => {
             return response.json();
-        }).then((resource) => {                
-            this.setState({ characters: resource.results.slice(0,3)})  
+        }).then((resource) => {        
+            setCharacters(resource.results.slice(0,3));
         });
-    }
+    });
 
-    renderCharacters = () => {
-        return this.state.characters.map((char, index) => 
+    const renderCharacters = () => {        
+        return characters.map((char, index) => 
             <div key={index} className="card">
                 <img className="avatar" src={char.image} alt="Avatar"/>
                 <div className="container">
@@ -29,14 +28,11 @@ class Character extends React.Component {
             </div>
         )
     }
-
-    render() {
-        const {characters} = this.state;  
-        return (
-            characters.length > 0 ? this.renderCharacters() : 
-            <CircularProgress size={50}/>
-        )
-    }
+    
+    return (
+        characters.length > 0 ? renderCharacters() : 
+        <CircularProgress size={50}/>           
+    )
 }
 
 export default Character;
